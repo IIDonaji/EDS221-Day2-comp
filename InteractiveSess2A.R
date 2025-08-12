@@ -1,5 +1,5 @@
+# data filtering and data subsettingin base r no packages includded
 # making vectors
-
 #character vector
 dogs <- c("teddy", "khora", "waffle", "banjo")
 class(dogs)
@@ -76,7 +76,7 @@ tacos <- list(toppings = c("onion", "cilantro", "guacamole"),
 tacos[[2]]
 tacos$filling # calling themout by names
 
-# dataframe special vertions of list
+# data frame special versions of list
 # Making Data frames
 fruit <- data.frame(type = c("apple", "banana", "peach"), # a vector for names for vectors
                     mass = c(130, 195, 150))
@@ -89,3 +89,45 @@ fruit[1,2]
 fruit[,2]
 fruit[1,]
 fruit[2,1] <- "pineapple" # changed banana to pineapple
+
+# Select multiple elements
+x <- 1:10
+x[c(3,1,5)]
+x[c(1,1,1)]
+x[c(1.2,5.4,7.2)]
+
+# exclude elements
+x[-10] # want all elements but the 10th one
+x[-c(2,4,7,8,10)]
+#x[c(-1,2) # can't mix and positive numbers
+
+# logical vectors
+x[c(TRUE, FALSE, FALSE, TRUE, FALSE, TRUE, TRUE, FALSE, TRUE, FALSE)] # True = keeps, False = go away, a foundation for the following
+
+x[x > 3]  # data filtering, creating true and false statems for each of elements in our data
+
+x[] # get back original vector b.c. non of the x where stored
+x[0]
+
+# Subsetting and assigning multiple values 
+x <- 1:5
+x[c(1, 2)] <- 2:3 # replaced 1 and 2 with 2 and 3
+
+x[-1] <- 4:1 #replaced all but the 1st with values 4,3,2,1
+
+# Subset rows in data frames based on conditions ( logical sub-setting)
+mtcars[mtcars$gear == 5, ] # $ gives us the column the slots, == for logical statement after, left blank to get all columns 
+
+mtcars[mtcars$gear ==5 & mtcars$cyl == 4, ]# conditioning based on multiple columns
+# shorthand version using the subset function
+subset(mtcars, gear == 5) 
+subset(mtcars, gear == 5 & cyl == 4)
+
+# Removing columns
+df <- data.frame(x = 1, 2, 3, # reassigning
+                 y = 3:1,
+                 z = c("a", "b", "c"))
+
+df$z <- NULL # setting things to NULL
+df <- df[c("x", "y")]
+df[setdiff(names(df), "z")] # give all data frame but z
